@@ -29,7 +29,7 @@ router.post("/register", async (req, res, next) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        expires: new Date(new Date().getTime() + 5 * 1000),
+        expires: new Date(new Date().getTime() + 86400 * 1000),
       })
       .json({
         ...user.dataValues,
