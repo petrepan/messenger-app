@@ -30,7 +30,7 @@ router.post("/", async (req, res, next) => {
 
       //return error if current conversation is not the same with the one on database
       return res
-        .status(401)
+        .status(403)
         .json({ error: "You cannot send message to this conversation" });
     }
 
