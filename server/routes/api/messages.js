@@ -10,7 +10,7 @@ router.post("/", async (req, res, next) => {
     }
     const senderId = req.user.id;
     const { recipientId, text, conversationId, sender } = req.body;
-    
+
     // find a conversation to update or add if it doesn't already exist
     let conversation = await Conversation.findConversation(
       senderId,
@@ -50,6 +50,35 @@ router.post("/", async (req, res, next) => {
       conversationId: conversation.id,
     });
     res.json({ message, sender });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/read", async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.sendStatus(401);
+    }
+
+    const { otherUserId, conversationId } = req.body;
+
+    //update read status to true
+
+    const updateMessage = await Message.update(
+      { isRead: true },
+      {
+        where: {
+          senderId: otherUserId,
+          conversationId: conversationId,
+          isRead: false,
+        },
+      }
+    );
+
+    console.log(updateMessage)
+
+    res.json({ message: "success" });
   } catch (error) {
     next(error);
   }
