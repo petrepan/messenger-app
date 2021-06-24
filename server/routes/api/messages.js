@@ -64,7 +64,6 @@ router.put("/read", async (req, res, next) => {
     const { otherUserId, conversationId } = req.body;
 
     //update read status to true
-
     const updateMessage = await Message.update(
       { isRead: true },
       {
@@ -76,9 +75,7 @@ router.put("/read", async (req, res, next) => {
       }
     );
 
-    console.log(updateMessage)
-
-    res.json({ message: "success" });
+    res.json({ message: "Updated successfully" });
   } catch (error) {
     next(error);
   }
