@@ -5,14 +5,13 @@ import { readMessage } from "../../store/utils/thunkCreators";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
 
-const Messages = (props) => {
-  const { messages, otherUser, userId } = props;
-  
+const Messages = ({ messages, otherUser, userId }) => {
+  const firstConvoId = messages[0].conversationId;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(readMessage(props.otherUser.id, props.messages[0].conversationId));
-  },[dispatch, props.otherUser.id]);
+    dispatch(readMessage(otherUser.id, firstConvoId));
+  }, [dispatch, otherUser.id, firstConvoId]);
 
   return (
     <Box>
