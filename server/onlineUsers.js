@@ -1,8 +1,6 @@
 const onlineUsers = [];
 
-const isUserOnline = (id) => {
-  return onlineUsers.includes(id);
-};
+const isUserOnline = (id) => onlineUsers.includes(id);
 
 const addUserOnline = (id) => {
   if (isUserOnline(id)) return;
