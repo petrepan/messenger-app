@@ -50,22 +50,23 @@ const ChatContent = (props) => {
 
   const lastMessageArr =
     conversation.messages[conversation.messages.length - 1];
+
+  const getPreviewTextStyle = () => {
+    const isPreview =
+      conversation.otherUser.id !== lastMessageArr.senderId ||
+      lastMessageArr.isRead === true;
+    return isPreview ? classes.previewText : classes.unreadPreviewText;
+  };
   return (
     <Box className={classes.root}>
       <Box>
         <Typography className={classes.username}>
           {otherUser.username}
         </Typography>
-        {conversation.otherUser.id !== lastMessageArr.senderId ||
-        lastMessageArr.isRead === true ? (
-          <Typography className={classes.previewText}>
-            {latestMessageText}
-          </Typography>
-        ) : (
-          <Typography className={classes.unreadPreviewText}>
-            {latestMessageText}
-          </Typography>
-        )}
+
+        <Typography className={getPreviewTextStyle()}>
+          {latestMessageText}
+        </Typography>
       </Box>
       {unread > 0 && (
         <Badge

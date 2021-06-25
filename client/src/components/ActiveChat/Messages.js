@@ -12,7 +12,6 @@ const Messages = (props) => {
 
   useEffect(() => {
     dispatch(readMessage(props.otherUser.id, props.messages[0].conversationId));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[dispatch, props.otherUser.id]);
 
   return (

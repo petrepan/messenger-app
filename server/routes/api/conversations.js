@@ -75,7 +75,7 @@ router.get("/", async (req, res, next) => {
       //set unread properties on each message 
       convoJSON.unread = 0;
       convoJSON.messages.forEach((message) => {
-        if (userId !== message.senderId && message.isRead == false) {
+        if (userId !== message.senderId && !message.isRead) {
           convoJSON.unread++;
         }
       });
