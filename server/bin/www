@@ -41,10 +41,7 @@ io.use((socket, next) => {
   const { token } = req.cookies;
   if (token) {
     jwt.verify(token, process.env.SESSION_SECRET, (err, decoded) => {
-      if (err) {
-        return next(new Error("Unauthorized request"));
-      }
-      return next()
+      err ? next(new Error("Unauthorized request")) : next();
     });
   } else {
     next(new Error("invalid"));
