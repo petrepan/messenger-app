@@ -7,7 +7,7 @@ export const theme = createMuiTheme({
   typography: {
     fontFamily: "Open Sans, sans-serif",
     fontSize: 16,
-    fontSizeSm: 12,
+    fontSizeSm: 13,
     button: {
       textTransform: "none",
       letterSpacing: 0,
