@@ -53,8 +53,8 @@ export const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: { main: "#3A8DFF" },
-    secondary: { main: "#B0B0B0" },
+    primary: { main: PRIMARY_COLOR },
+    secondary: { main: SECONDARY_COLOR },
     gradient: {
       start: (opacity) => `rgb(58 141 255 / ${opacity || 100}%)`,
       end: (opacity) => `rgb(134 185 255 / ${opacity || 100}%)`,
