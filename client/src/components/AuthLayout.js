@@ -62,7 +62,10 @@ const useStyles = makeStyles((theme) => ({
   formWrapper: {
     width: "60%",
     minWidth: "300px",
-    margin: "auto",
+    margin: "30px auto 0px",
+  },
+  form: {
+    marginTop: "15px"
   },
   btnWrapper: {
     textAlign: "center",
@@ -104,7 +107,7 @@ const AuthLayout = (props) => {
       </Hidden>
 
       <Grid item xs={12} md={7}>
-        <Grid className={classes.heightFull} spacing={0}>
+        <Grid container className={classes.heightFull} spacing={0}>
           <Grid item xs={12}>
             <Box p={3}>
               <Grid container alignItems="center" justify="flex-end">
@@ -120,15 +123,15 @@ const AuthLayout = (props) => {
               </Grid>
             </Box>
           </Grid>
-          <Box my={5} />
           <Grid item className={classes.heightFull} xs={12}>
             <Grid container spacing={0} justify="center" direction="column">
               <Box className={classes.formWrapper}>
                 <Typography align="left" variant="h4" component="h4">
                   {props.title}
                 </Typography>
-                <Box my={3} />
-                <form onSubmit={props.handleFormSubmit}>
+                <form
+                  className={classes.form}
+                  onSubmit={props.handleFormSubmit}>
                   {props.children}
                   <Box className={classes.btnWrapper} my={4}>
                     <Button

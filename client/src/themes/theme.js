@@ -15,6 +15,11 @@ export const theme = createMuiTheme({
     },
   },
   overrides: {
+    MuiFormControl: {
+      root: {
+        marginBottom: "15px"
+      },
+    },
     MuiInput: {
       input: {
         fontWeight: "bold",

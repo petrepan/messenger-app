@@ -3,7 +3,6 @@ import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   Grid,
-  Box,
   InputAdornment,
   FormControl,
   TextField,
@@ -48,13 +47,12 @@ const Login = ({ user, login }) => {
       <Grid container align="center" justify="center" direction="column">
         <FormControl margin="normal" required>
           <TextField
-            aria-label="Email address"
-            label="E-mail address"
+            aria-label="Username"
+            label="Username"
             name="username"
             type="text"
           />
         </FormControl>
-        <Box my={2} />
         <FormControl margin="normal" required>
           <TextField
             aria-label="password"

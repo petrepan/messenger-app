@@ -3,7 +3,6 @@ import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   Grid,
-  Box,
   FormControl,
   TextField,
   FormHelperText,
@@ -53,7 +52,6 @@ const Signup = ({ user, register }) => {
             fullWidth
           />
         </FormControl>
-        <Box my={2} />
         <FormControl>
           <TextField
             label="E-mail address"
@@ -63,7 +61,6 @@ const Signup = ({ user, register }) => {
             required
           />
         </FormControl>
-        <Box my={2} />
         <FormControl error={!!formErrorMessage.confirmPassword}>
           <TextField
             aria-label="password"
@@ -75,7 +72,6 @@ const Signup = ({ user, register }) => {
           />
           <FormHelperText>{formErrorMessage.confirmPassword}</FormHelperText>
         </FormControl>
-        <Box my={2} />
         <FormControl error={!!formErrorMessage.confirmPassword}>
           <TextField
             label="Confirm Password"
