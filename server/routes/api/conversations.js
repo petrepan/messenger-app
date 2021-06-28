@@ -12,6 +12,7 @@ router.get("/", async (req, res, next) => {
       return res.sendStatus(401);
     }
     const userId = req.user.id;
+
     const conversations = await Conversation.findAll({
       where: {
         [Op.or]: {
@@ -71,11 +72,17 @@ router.get("/", async (req, res, next) => {
       // set properties for notification count and latest message preview
       convoJSON.latestMessageText = convoJSON.messages[0].text;
 
+      //set unread properties on each message 
+      convoJSON.unread = 0;
+      convoJSON.messages.forEach((message) => {
+        if (userId !== message.senderId && !message.isRead) {
+          convoJSON.unread++;
+        }
+      });
       //reverse messages so as to render new messages last in a convo.
       convoJSON.messages.reverse();
       conversations[i] = convoJSON;
     }
-
     res.json(conversations);
   } catch (error) {
     next(error);

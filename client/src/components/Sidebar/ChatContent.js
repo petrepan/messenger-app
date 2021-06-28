@@ -1,17 +1,25 @@
 import React from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Badge } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
     marginLeft: 20,
+    marginRight: 20,
     flexGrow: 1,
   },
   username: {
     fontWeight: "bold",
     letterSpacing: -0.2,
+  },
+  unreadPreviewText: {
+    fontWeight: "bold",
+    fontSize: 13,
+    color: "#000",
+    letterSpacing: -0.17,
   },
   previewText: {
     fontSize: 12,
@@ -19,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: -0.17,
   },
   notification: {
-    height: 20,
+    height: 18,
     width: 20,
     backgroundColor: "#3F92FF",
     marginRight: 10,
@@ -38,18 +46,34 @@ const ChatContent = (props) => {
   const classes = useStyles();
 
   const { conversation } = props;
-  const { latestMessageText, otherUser } = conversation;
+  const { latestMessageText, otherUser, unread } = conversation;
 
+  const lastMessageArr =
+    conversation.messages[conversation.messages.length - 1];
+
+  const getPreviewTextStyle = () => {
+    const isPreview =
+      conversation.otherUser.id !== lastMessageArr.senderId ||
+      lastMessageArr.isRead === true;
+    return isPreview ? classes.previewText : classes.unreadPreviewText;
+  };
   return (
     <Box className={classes.root}>
       <Box>
         <Typography className={classes.username}>
           {otherUser.username}
         </Typography>
-        <Typography className={classes.previewText}>
+
+        <Typography className={getPreviewTextStyle()}>
           {latestMessageText}
         </Typography>
       </Box>
+      {unread > 0 && (
+        <Badge
+          classes={{ badge: `${classes.notification}` }}
+          badgeContent={unread}
+        />
+      )}
     </Box>
   );
 };
