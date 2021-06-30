@@ -103,7 +103,7 @@ export const postMessage = (body) => async (dispatch) => {
 export const readMessage =
   (otherUserId, conversationId) => async (dispatch) => {
     try {
-      await axios.put("/api/messages/read", {
+      await axios.patch("/api/messages/read", {
         otherUserId,
         conversationId,
       });
