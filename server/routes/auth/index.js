@@ -90,7 +90,7 @@ router.get("/user", (req, res, next) => {
   if (req.user) {
     return res.json(req.user);
   } else {
-    return res.json({});
+    return res.status(401).json({});
   }
 });
 
