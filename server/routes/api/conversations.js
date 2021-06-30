@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { User, Conversation, Message } = require("../../db/models");
 const { Op } = require("sequelize");
-const onlineUsers = require("../../onlineUsers");
+const { isUserOnline } = require("../../onlineUsers");
 
 // get all conversations for a user, include latest message text for preview, and all messages
 // include other user model so we have info on username/profile pic (don't include current user info)
@@ -12,6 +12,7 @@ router.get("/", async (req, res, next) => {
       return res.sendStatus(401);
     }
     const userId = req.user.id;
+
     const conversations = await Conversation.findAll({
       where: {
         [Op.or]: {
@@ -62,20 +63,22 @@ router.get("/", async (req, res, next) => {
       }
 
       // set property for online status of the other user
-      if (onlineUsers.includes(convoJSON.otherUser.id)) {
-        convoJSON.otherUser.online = true;
-      } else {
-        convoJSON.otherUser.online = false;
-      }
-
+      convoJSON.otherUser.online = isUserOnline(convoJSON.otherUser.id)
+      
       // set properties for notification count and latest message preview
       convoJSON.latestMessageText = convoJSON.messages[0].text;
 
+      //set unread properties on each message
+      convoJSON.unread = 0;
+      convoJSON.messages.forEach((message) => {
+        if (userId !== message.senderId && !message.isRead) {
+          convoJSON.unread++;
+        }
+      });
       //reverse messages so as to render new messages last in a convo.
       convoJSON.messages.reverse();
       conversations[i] = convoJSON;
     }
-
     res.json(conversations);
   } catch (error) {
     next(error);

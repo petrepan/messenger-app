@@ -99,6 +99,21 @@ export const postMessage = (body) => async (dispatch) => {
   }
 };
 
+// conversationId will be set to null if its a brand new conversation
+export const readMessage =
+  (otherUserId, conversationId) => async (dispatch) => {
+    try {
+      await axios.put("/api/messages/read", {
+        otherUserId,
+        conversationId,
+      });
+      const { data } = await axios.get("/api/conversations");
+      dispatch(gotConversations(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export const searchUsers = (searchTerm) => async (dispatch) => {
   try {
     const { data } = await axios.get(`/api/users/${searchTerm}`);
